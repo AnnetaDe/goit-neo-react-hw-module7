@@ -55,7 +55,7 @@ const contactsSlice = createSlice({
       )
 
       .addMatcher(
-        ({ type }) => type.endsWith('/fullfilled'),
+        ({ type }) => type.endsWith('/fulfilled'),
         (state, { error }) => {
           state.isLoading = false;
           state.error = error;
