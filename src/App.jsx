@@ -22,9 +22,9 @@ function App() {
 
       <div>
         <FormikContactForm formValidation={formValidation} />
+        {isLoading && <Loader />}
         <FormikSearchBox />
         <FormikContactList />
-        {isLoading && <Loader />}
       </div>
     </div>
   );
