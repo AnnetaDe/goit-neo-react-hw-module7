@@ -12,8 +12,6 @@ import { Loader } from './components/Loader/Loader';
 function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
-  console.log(isLoading);
-  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(getContactsOper());

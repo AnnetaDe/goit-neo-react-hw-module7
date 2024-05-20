@@ -15,7 +15,6 @@ export const FormikContactForm = () => {
   const handleSubmit = (values, actions) => {
     dispatch(addCurrentContact(values));
     dispatch(addContactsOper(values));
-    console.log(addContactsOper(values), values);
     actions.resetForm();
   };
 
