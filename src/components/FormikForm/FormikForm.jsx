@@ -2,7 +2,8 @@ import s from './FormikForm.module.css';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { formValidation } from './formValidation';
 import { useDispatch } from 'react-redux';
-import { addContact } from '../../redux/contactsSlice';
+import { addCurrentContact } from '../../redux/contactsSlice';
+import { addContactsOper } from '../../redux/contactsOps';
 
 export const FormikContactForm = () => {
   const dispatch = useDispatch();
@@ -12,17 +13,14 @@ export const FormikContactForm = () => {
   };
 
   const handleSubmit = (values, actions) => {
-    dispatch(addContact(values));
-    console.log(values);
+    dispatch(addCurrentContact(values));
+    dispatch(addContactsOper(values));
+    console.log(addContactsOper(values), values);
     actions.resetForm();
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={formValidation}
-      onSubmit={handleSubmit}
-    >
+    <Formik initialValues={initialValues} validationSchema={formValidation} onSubmit={handleSubmit}>
       <Form className={s.formikForm}>
         <label htmlFor="name">
           <span className={s.labelSpan}>New Contact Name </span>

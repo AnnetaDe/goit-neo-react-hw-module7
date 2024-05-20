@@ -7,13 +7,11 @@ import { selectContacts } from '../../redux/contactsSlice';
 
 export const FormikContactList = () => {
   const contacts = useSelector(selectContacts);
-  console.log(contacts);
   const filter = useSelector(selectNameFilter);
 
   const filteredContacts = contacts.filter(
     contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()) ||
-      contact.number.includes(filter)
+      contact.name.toLowerCase().includes(filter.toLowerCase()) || contact.number.includes(filter)
   );
 
   return (
