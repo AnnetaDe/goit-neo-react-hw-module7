@@ -6,7 +6,9 @@ import { formValidation } from './components/FormikForm/formValidation';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getContactsOper } from './redux/contactsOps';
-import { selectContacts, selectError, selectIsLoading } from './redux/selectors';
+import { selectError, selectIsLoading } from './redux/selectors';
+import { Loader } from './components/Loader/Loader';
+
 function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
@@ -24,7 +26,7 @@ function App() {
         <FormikContactForm formValidation={formValidation} />
         <FormikSearchBox />
         <FormikContactList />
-        {isLoading && <b>Loading in progr</b>}
+        {isLoading && <Loader />}
       </div>
     </div>
   );
