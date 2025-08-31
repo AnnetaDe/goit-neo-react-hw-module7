@@ -1,4 +1,5 @@
 .searchBox {
+  display: flex;
   font-family: var(--font-family);
   margin: 20px 20px;
   width: 300px;
