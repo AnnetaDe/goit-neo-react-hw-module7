@@ -1,11 +1,11 @@
-import s from './FormikForm.module.css';
+import s from './ContactForm.module.css';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { formValidation } from './formValidation';
 import { useDispatch } from 'react-redux';
 import { addCurrentContact } from '../../redux/contactsSlice';
 import { addContactsOper } from '../../redux/contactsOps';
 
-export const FormikContactForm = () => {
+export const ContactForm = () => {
   const dispatch = useDispatch();
   const initialValues = {
     name: '',

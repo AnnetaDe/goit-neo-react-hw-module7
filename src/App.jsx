@@ -1,13 +1,14 @@
 import './App.css';
-import { FormikContactForm } from './components/FormikForm/FormikForm';
-import { FormikSearchBox } from './components/FormikSearchBox/FormikSearchBox';
-import { FormikContactList } from './components/FormikContactList/FormikContactList';
-import { formValidation } from './components/FormikForm/formValidation';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getContactsOper } from './redux/contactsOps';
-import { selectError, selectIsLoading } from './redux/selectors';
+import { selectIsLoading } from './redux/selectors';
 import { Loader } from './components/Loader/Loader';
+import { ContactForm } from './components/ContactForm/ContactForm';
+import { SearchBox } from './components/SearchBox/SearchBox';
+import { ContactList } from './components/ContactList/ContactList';
+import { formValidation } from './components/ContactForm/formValidation';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,10 +22,10 @@ function App() {
       <h1>Phonebook</h1>
 
       <div>
-        <FormikContactForm formValidation={formValidation} />
+        <ContactForm formValidation={formValidation} />
         {isLoading && <Loader />}
-        <FormikSearchBox />
-        <FormikContactList />
+        <SearchBox />
+        <ContactList />
       </div>
     </div>
   );

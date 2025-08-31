@@ -1,13 +1,13 @@
 import { useSelector } from 'react-redux';
-import s from './FormikContactList.module.css';
-import { selectNameFilter } from '../../redux/filtersSlice';
+import s from './ContactList.module.css';
 
-import { FormikContact } from '../FormikContact/FormikContact';
+import { Contact } from '../Contact/Contact';
 import { selectContacts } from '../../redux/contactsSlice';
+import { selectFilteredContacts } from '../../redux/filtersSlice';
 
-export const FormikContactList = () => {
+export const ContactList = () => {
   const contacts = useSelector(selectContacts);
-  const filter = useSelector(selectNameFilter);
+  const filter = useSelector(selectFilteredContacts);
 
   const filteredContacts = contacts.filter(
     contact =>
@@ -18,7 +18,7 @@ export const FormikContactList = () => {
     <div>
       <ul className={s.contactsFormik}>
         {filteredContacts.map(contact => (
-          <FormikContact li key={contact.id} {...contact} />
+          <Contact li key={contact.id} {...contact} />
         ))}
       </ul>
     </div>
