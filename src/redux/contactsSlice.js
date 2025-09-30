@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { getContactsOper, addContactsOper, deleteContactsOper } from './contactsOps';
 
 const initialState = {
@@ -16,24 +16,6 @@ const contactsSlice = createSlice({
     addCurrentContact(state, action) {
       state.currentContact = action.payload;
     },
-
-    // addContact: {
-    //   reducer(state, action) {
-    //     state.items.push(action.payload);
-    //   },
-    //   prepare(values) {
-    //     return {
-    //       payload: {
-    //         name: values.name,
-    //         number: values.number,
-    //         id: nanoid(),
-    //       },
-    //     };
-    //   },
-    // },
-    // deleteContact(state, action) {
-    //   state.items = state.items.filter(item => item.id !== action.payload);
-    // },
   },
   extraReducers: builder => {
     builder
@@ -70,8 +52,15 @@ const contactsSlice = createSlice({
         }
       );
   },
+  selectors: {
+    selectContacts: state => state.items,
+    selectIsLoading: state => state.isLoading,
+    selectError: state => state.error,
+    selectCurrentContact: state => state.currentContact,
+  },
 });
 
 export const { addCurrentContact, deleteContact } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
-export const { selectContacts } = contactsSlice.selectors;
+export const { selectContacts, selectIsLoading, selectError, selectCurrentContact } =
+  contactsSlice.selectors;
