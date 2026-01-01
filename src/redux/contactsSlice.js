@@ -1,5 +1,7 @@
+// noinspection JSAnnotator
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { getContactsOper, addContactsOper, deleteContactsOper } from './contactsOps';
+import { selectFilter } from './filtersSlice.js';
 
 const initialState = {
   items: [],
@@ -8,10 +10,11 @@ const initialState = {
   currentContact: null,
 };
 
+const selectContactsItems = state => state.items;
+
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
-  selectors: { selectContacts: state => state.items },
   reducers: {
     addCurrentContact(state, action) {
       state.currentContact = action.payload;
@@ -23,7 +26,7 @@ const contactsSlice = createSlice({
         state.items = payload;
       })
       .addCase(addContactsOper.fulfilled, (state, { payload }) => {
-        state.items = [...state.items, payload];
+        state.items.push(payload);
       })
       .addCase(deleteContactsOper.fulfilled, (state, { payload }) => {
         state.items = state.items.filter(item => item.id !== payload.id);
@@ -35,15 +38,13 @@ const contactsSlice = createSlice({
           state.error = null;
         }
       )
-
       .addMatcher(
         ({ type }) => type.endsWith('/fulfilled'),
-        (state, { error }) => {
+        state => {
           state.isLoading = false;
-          state.error = error;
+          state.error = null;
         }
       )
-
       .addMatcher(
         ({ type }) => type.endsWith('/rejected'),
         (state, { error }) => {
@@ -52,15 +53,19 @@ const contactsSlice = createSlice({
         }
       );
   },
-  selectors: {
-    selectContacts: state => state.items,
-    selectIsLoading: state => state.isLoading,
-    selectError: state => state.error,
-    selectCurrentContact: state => state.currentContact,
-  },
 });
 
-export const { addCurrentContact, deleteContact } = contactsSlice.actions;
+export const { addCurrentContact } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
-export const { selectContacts, selectIsLoading, selectError, selectCurrentContact } =
-  contactsSlice.selectors;
+
+// selectors
+export const selectContacts = state => selectContactsItems(state.contacts);
+export const selectIsLoading = state => state.contacts.isLoading;
+export const selectError = state => state.contacts.error;
+export const selectCurrentContact = state => state.contacts.currentContact;
+
+export const selectFilteredContacts = createSelector(
+  [selectContacts, selectFilter],
+  (contacts, filter) =>
+    contacts.filter(({ name }) => name.toLowerCase().includes(filter.toLowerCase()))
+);
