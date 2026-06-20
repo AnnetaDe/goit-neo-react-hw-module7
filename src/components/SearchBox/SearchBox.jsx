@@ -5,7 +5,6 @@ import { changeFilter } from '../../redux/filtersSlice';
 import { selectFilter } from '../../redux/filtersSlice';
 export const SearchBox = () => {
   const dispatch = useDispatch();
-  const value = useSelector(selectFilter);
 
   return (
     <Formik>
@@ -15,7 +14,8 @@ export const SearchBox = () => {
           <input
             id="search"
             type="text"
-            defaultValue={value}
+            value={useSelector(selectFilter)}
+            defaultValue=''
             onChange={e => dispatch(changeFilter(e.target.value))}
           />
         </label>
